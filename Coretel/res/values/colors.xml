@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_principal">#99CCCC</color>
+    <color name="background_header">#003333</color>
+    <color name="background_body">#D4FFFF</color>
+    <color name="background_footer">#003333</color>
+    <color name="background_dialog">#99FFFF</color>
+    
+    <color name="text_label">#333333</color>
+    <color name="text_value">#505050</color>
+    <color name="text_title">#FFFFD4</color>
+    
+    <color name="text_button_common">#3C3C3C</color>
+</resources>
