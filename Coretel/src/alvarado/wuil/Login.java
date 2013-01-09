@@ -47,6 +47,9 @@ public class Login extends Activity implements OnClickListener, OnKeyListener{
             setClaveEditText((EditText)findViewById(R.id.login_clave_edittext));
             setEntrarButton((Button)findViewById(R.id.login_entrar_button));
             setSalirButton((Button)findViewById(R.id.login_salir_button));
+            
+            getUsuarioEditText().setText("emejia");
+            getClaveEditText().setText("tPR9Yg");
             getClaveEditText().setOnKeyListener(this);
             getUsuarioEditText().setOnKeyListener(this);
             getEntrarButton().setOnClickListener(this);

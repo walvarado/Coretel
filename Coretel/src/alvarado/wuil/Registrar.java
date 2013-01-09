@@ -75,12 +75,11 @@ public class Registrar extends Activity implements OnClickListener, OnKeyListene
 				String usuario = getUsuarioEditText().getText().toString();
 				String email = getEmailEditText().getText().toString();
 				String telefono = getTelefonoEditText().getText().toString();
-				if(CamposLlenos(nombre, email, telefono)){
+				if(CamposLlenos(nombre, usuario, email, telefono)){
 					RequestWS request = new RequestWS();
 					setRespuesta(request.CrearUsuario(nombre, usuario, email, telefono));
 					if(getRespuesta().isResultado()){
 						RegistrarChat(usuario, nombre);
-						
 						LimpiaCampos();
 						getMensaje().VerMensaje(this, getRespuesta().getMensaje());
 						
@@ -135,30 +134,22 @@ public class Registrar extends Activity implements OnClickListener, OnKeyListene
             //Metodo con las instrucciones al finalizar lo ejectuado en background
             protected void onPostExecute(Integer resultado){
                   pd.dismiss();
-                  if (isEnviado()){
+                  if (getRespuesta().isResultado()){
                 	  System.out.println("correcto");
-                       getMensaje().VerMensaje(Registrar.this, getRespuesta().getMensaje());
-                       finish();
-                 
+                      dialogoConfirmacion(Registrar.this);
                  } else {
                 	 System.out.println("no correcto");
-                       getMensaje().VerMensaje(Registrar.this , getRespuesta().getMensaje());
-                       LimpiaCampos();
+                     getMensaje().VerMensaje(Registrar.this , getRespuesta().getMensaje());
+                     LimpiaCampos();
                  }
-                 
-           }
-
-            private void LimpiaCampos() {
-                  //getClaveEditText().setText( "");
-                  //getUsuarioEditText().setText( "" );
            }
     }
 
-    public void DialogoConfirmacion(Context ctx){
+    public void dialogoConfirmacion(Context ctx){
     	new AlertDialog.Builder(ctx)
         .setIcon(ctx.getResources().getDrawable(R.drawable.alert))
         .setTitle("REGISTRO EXITOSO")
-        .setMessage("Verifique el correo que registro para conocer su contraseña")
+        .setMessage(getRespuesta().getMensaje())
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                      finish();
@@ -170,13 +161,14 @@ public class Registrar extends Activity implements OnClickListener, OnKeyListene
 
 	private void LimpiaCampos() {
 		getNombreEditText().setText("");
+		getUsuarioEditText().setText("");
 		getEmailEditText().setText("");
 		getTelefonoEditText().setText("");
 		
 	}
 
-	private boolean CamposLlenos(String nombre, String email, String telefono) {
-		if (!nombre.equalsIgnoreCase("") && !email.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("")){
+	private boolean CamposLlenos(String nombre, String usuario, String email, String telefono) {
+		if (!nombre.equalsIgnoreCase("") && !usuario.equalsIgnoreCase("") && !email.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("")){
 			return true;
 		}
 		return false;
